@@ -11,26 +11,35 @@ if len(sys.argv) < 2:
     print "Usage: python duo_bypass.py <url to duo qr>"; exit()
 
 qr_url = sys.argv[1]
-data = qr_url #unquote(qr_url.split('=')[1])
 
-hostb64 = data.split('-')[1]
+host = 'api-%s' % (qr_url.split('/')[2].split('-')[1],)
+code = qr_url.rsplit('/',1)[1]
 
-print "hostb64", hostb64
+url = 'https://{host}/push/v2/activation/{code}?customer_protocol=1'.format(host=host, code=code)
+headers = {'User-Agent': 'okhttp/2.7.5'}
+data = {'jailbroken': 'false',
+        'architecture': 'armv7',
+        'region': 'US',
+        'app_id': 'com.duosecurity.duomobile',
+        'full_disk_encryption': 'true',
+        'passcode_status': 'true',
+        'platform': 'Android',
+        'app_version': '3.23.0',
+        'app_build_number': '323001',
+        'version': '8.1',
+        'manufacturer': 'unknown',
+        'language': 'en',
+        'model': 'Pixel C',
+        'security_patch_level': '2018-12-01'}
 
-host = base64.b64decode(hostb64 + '='*(-len(hostb64) % 4))
-code = data.split('-')[0]
-
-print "host", host
-print "code", code
-
-url = 'https://{host}/push/v2/activation/{code}'.format(host=host, code=code)
-r = requests.post(url)
+r = requests.post(url, headers=headers, data=data)
 response = json.loads(r.text)
 
-print "url", url
-print "r", r
-print "response", response
-secret = base64.b32encode(response['response']['hotp_secret'])
+try:
+  secret = base64.b32encode(response['response']['hotp_secret'])
+except KeyError:
+  print response
+  sys.exit(1)
 
 print "secret", secret
 
@@ -44,4 +53,7 @@ f = open('duotoken.hotp', 'w')
 f.write(secret + "\n")
 f.write("0")
 f.close()
+
+with open('response.json', 'w') as resp:
+    resp.write(r.text)
 
