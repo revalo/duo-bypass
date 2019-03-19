@@ -7,7 +7,12 @@ import json
 import sys
 from urllib2 import unquote
 
-f = open("duotoken.hotp","r+");
+if len(sys.argv) == 2:
+    file = sys.argv[1]
+else:
+    file = "duotoken.hotp"
+
+f = open(file, "r+");
 secret = f.readline()[0:-1]
 offset = f.tell()
 count = int(f.readline())
