@@ -22,4 +22,3 @@ print("Code:", hotp.at(count))
 f.seek(offset)
 f.write(str(count + 1))
 f.close()
-
