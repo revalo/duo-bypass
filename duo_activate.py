@@ -1,14 +1,14 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 
 import pyotp
 import requests
 import base64
 import json
 import sys
-from urllib2 import unquote
 
 if len(sys.argv) < 2:
-    print "Usage: python duo_bypass.py <url to duo qr>"; exit()
+    print("Usage: python duo_bypass.py <url to duo qr>")
+    sys.exit()
 
 qr_url = sys.argv[1]
 
@@ -38,16 +38,16 @@ response = json.loads(r.text)
 try:
   secret = base64.b32encode(response['response']['hotp_secret'])
 except KeyError:
-  print response
+  print(response)
   sys.exit(1)
 
-print "secret", secret
+print("secret", secret)
 
-print "10 Next OneTime Passwords!"
+print("10 Next OneTime Passwords!")
 # Generate 10 Otps!
 hotp = pyotp.HOTP(secret)
 for _ in xrange(10):
-    print hotp.at(_)
+    print(hotp.at(_))
 
 f = open('duotoken.hotp', 'w')
 f.write(secret + "\n")
