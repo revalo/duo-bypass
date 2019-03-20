@@ -1,1 +1,3 @@
 *.pyc
+duotoken.hotp
+response.json
