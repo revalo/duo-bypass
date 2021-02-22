@@ -12,13 +12,14 @@ Install stuff,
 ```
 pip install -r requirements.txt
 ```
+Grab the text from the QR code, it is the format: XXXXXXXXXX-YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+#copy 'XXXXXXXXXX' to "code" in duo_activate.py
+#use https://www.base64decode.org/ to decode YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY and put it in 'host'
+#decoded format should be in the format: api-XXXXX.duosecurity.com . Place that in "Host"
 
-Just grab the QR Code URL and copy the string after value
-
-https://api-XXX.duosecurity.com/frame/qr?value={VALUE}
-
+Then run:
 ```
-./duo_activate.py {VALUE}
+./duo_activate.py
 ```
 
 If everything worked you can then generate a code by running:
