@@ -47,10 +47,9 @@ hotp = pyotp.HOTP(secret)
 for _ in range(10):
     print(hotp.at(_))
 
-f = open('duotoken.hotp', 'w')
-f.write(secret.decode() + "\n")
-f.write("0")
-f.close()
+with open('duotoken.hotp', 'w') as file
+    f.write(secret.decode() + "n")
+    f.write("0")
 
 with open('response.json', 'w') as resp:
     resp.write(r.text)
