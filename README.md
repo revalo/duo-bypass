@@ -13,9 +13,10 @@ Install stuff,
 pip install -r requirements.txt
 ```
 Grab the text from the QR code, it is the format: XXXXXXXXXX-YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
-#copy 'XXXXXXXXXX' to "code" in duo_activate.py
-#use https://www.base64decode.org/ to decode YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY and put it in 'host'
-#decoded format should be in the format: api-XXXXX.duosecurity.com . Place that in "Host"
+
+Use https://www.base64decode.org/ to decode YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY and put it in 'host'
+
+Decoded format should be in the format: api-XXXXX.duosecurity.com . Place that in "Host"
 
 Then run:
 ```
