@@ -6,6 +6,10 @@ import base64
 import json
 import sys
 
+#The QR Code is in the format: XXXXXXXXXX-YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+#copy 'XXXXXXXXXX' to "code"
+#use https://www.base64decode.org/ to decode YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY and put it in 'host'
+#decoded format should be in the format: api-XXXXX.duosecurity.com
 host = 'api-XXXXX.duosecurity.com'
 code = 'XXXXXXXXXX'
 
