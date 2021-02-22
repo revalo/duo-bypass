@@ -48,7 +48,7 @@ for _ in range(10):
     print(hotp.at(_))
 
 with open('duotoken.hotp', 'w') as file
-    f.write(secret.decode() + "n")
+    f.write(secret.decode() + "\n")
     f.write("0")
 
 with open('response.json', 'w') as resp:
