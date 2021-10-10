@@ -1,6 +1,9 @@
 ## Duo One Time Password Generator
 
-This is a little script I put together after I reverse engineered the Duo 2FA Mobile App and figured out how their auth flow works. This can be ported into probably a useful desktop app or chrome extention and can probably be used to write bots for MIT Services that require auth.
+This is a little script I put together after I reverse engineered the Duo 2FA
+Mobile App and figured out how their auth flow works. This can be ported into
+probably a useful desktop app or chrome extention and can probably be used to
+write bots for MIT Services that require auth.
 
 ### Usage
 
@@ -9,19 +12,29 @@ Install stuff,
 ```
 pip install -r requirements.txt
 ```
+Grab the text from the QR code, it is the format: XXXXXXXXXX-YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 
-Just grab the QR Code URL that starts with `duo://` and execute,
+Use https://www.base64decode.org/ to decode YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY and put it in 'host'
+
+Decoded format should be in the format: api-XXXXX.duosecurity.com . Place that in "Host"
+
+Then run:
+```
+./duo_activate.py
+```
+
+If everything worked you can then generate a code by running:
 
 ```
-python duo_bypass.py duo://urlhere
+./duo_gen.py
 ```
 
-### How does this work?
+Warning: These are HOTP tokens and generate codes increments a counter.  If you
+get too far out of sync with the server it will stop accepting your codes.
 
-It's pretty simple so I won't explain. The hard part was to read DUO's obfuscated code, because obfuscation makes things so secure.
+```
+./duo_export.py
+```
 
-Why didn't I sniff? Because HTTPS and because they apparantly ignore trusted CA's on the Android Device and also the fact that I was too lazy to get a USB cable from my room and also that I didn't want to download a gigabyte of emulator.
-
-When I almost got all of it I realized I could have probably decompiled their Windows app, coz .NET and and coz they didn't obfuscate that. rip me.
-
-Anyway, it's 9 AM and I should sleep.
+Export the duo hotp secret as a QR code for inclusion in third-party hotp apps
+like freeotp.
