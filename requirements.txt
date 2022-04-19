@@ -1,2 +1,4 @@
 pyotp
 requests
+pyqrcode
+opencv-python
