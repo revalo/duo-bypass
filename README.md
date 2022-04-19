@@ -12,16 +12,20 @@ Install stuff,
 ```
 pip install -r requirements.txt
 ```
-Grab the text from the QR code, it is the format: XXXXXXXXXX-YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 
-Use https://www.base64decode.org/ to decode YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY and put it in 'host'
-
-Decoded format should be in the format: api-XXXXX.duosecurity.com . Place that in "Host"
+Copy the QR code image (or create a screenshot) and store it as qr.png into this folder.
 
 Then run:
 ```
 ./duo_activate.py
 ```
+
+In case the QR code cannot be decoded automatically, you will be asked for its text value, it is the format:  
+XXXXXXXXXX-YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+
+The displayed code is the XXXXXXXXXX part of the QR code.  
+The displayed host is the base64 decoded YYYYYY[...] part of the QR code.
+It should be in the format: api-XXXXX.duosecurity.com.
 
 If everything worked you can then generate a code by running:
 
