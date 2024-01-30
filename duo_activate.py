@@ -50,7 +50,7 @@ hotp = pyotp.HOTP(secret)
 for _ in range(10):
     print(hotp.at(_))
 
-with open('duotoken.hotp', 'w') as file
+with open('duotoken.hotp', 'w') as f:
     f.write(secret.decode() + "\n")
     f.write("0")
 
