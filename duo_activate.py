@@ -5,6 +5,7 @@ import requests
 import base64
 import json
 import sys
+from Crypto.PublicKey import RSA
 
 #The QR Code is in the format: XXXXXXXXXX-YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 #copy 'XXXXXXXXXX' to "code"
@@ -15,7 +16,9 @@ code = 'XXXXXXXXXX'
 
 url = 'https://{host}/push/v2/activation/{code}?customer_protocol=1'.format(host=host, code=code)
 headers = {'User-Agent': 'okhttp/2.7.5'}
-data = {'jailbroken': 'false',
+data = {'pkpush': 'rsa-sha512',
+        'pubkey': RSA.generate(2048).public_key().export_key("PEM").decode(),
+        'jailbroken': 'false',
         'architecture': 'arm64',
         'region': 'US',
         'app_id': 'com.duosecurity.duomobile',
