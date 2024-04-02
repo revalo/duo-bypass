@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import pyotp
 import requests
 import base64
@@ -7,12 +6,19 @@ import json
 import sys
 from Crypto.PublicKey import RSA
 
+raw_input: str = sys.argv[1]
+split_raw_input: list = raw_input.split('-')
+code: str = split_raw_input[0]
+encoded_host: str = split_raw_input[1]
+host: str = base64.decodebytes(encoded_host.encode('utf-8') + b'==').decode()
+
+# Obsolete documentation for reference purposes:
 #The QR Code is in the format: XXXXXXXXXX-YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 #copy 'XXXXXXXXXX' to "code"
 #use https://www.base64decode.org/ to decode YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY and put it in 'host'
 #decoded format should be in the format: api-XXXXX.duosecurity.com
-host = 'api-XXXXX.duosecurity.com'
-code = 'XXXXXXXXXX'
+#host = 'api-XXXXX.duosecurity.com'
+#code = 'XXXXXXXXXX'
 
 url = 'https://{host}/push/v2/activation/{code}?customer_protocol=1'.format(host=host, code=code)
 headers = {'User-Agent': 'okhttp/2.7.5'}
@@ -50,9 +56,9 @@ hotp = pyotp.HOTP(secret)
 for _ in range(10):
     print(hotp.at(_))
 
-with open('duotoken.hotp', 'w') as file
-    f.write(secret.decode() + "\n")
-    f.write("0")
+with open('duotoken.hotp', 'w') as file:
+    file.write(secret.decode() + "\n")
+    file.write("0")
 
 with open('response.json', 'w') as resp:
     resp.write(r.text)
